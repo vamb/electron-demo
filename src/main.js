@@ -27,18 +27,21 @@ const createWindow = () => {
     frame: true, // 默认 true || false会导致一般的 工具栏 && title 被隐藏
     autoHideMenuBar: false, // false  || true 会导致 工具栏 被隐藏
     webPreferences: {
+      contextIsolation: false, // 是否是沙盒模式，这个为 false 下面的将 node 注入才会起效
       nodeIntegration: true, // 允许渲染进程调用node环境API
       enableRemoteModule: true, // 允许渲染进程使用remote工具在渲染进程中映射主进程中的方法，从而使用主进程的功能
       preload: path.join(__dirname, 'preload.js'), // 这个js文件会自动注入到html里面被调用
     },
   });
 
+  require('@electron/remote/main').initialize()
+  require("@electron/remote/main").enable(mainWindow.webContents)
 
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
   console.log('11111 -> dom ready triggered')
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 
   // // 这个对应的时 show => 为 false 的时候
   // mainWindow.on('ready-to-show', ()=>{
@@ -59,6 +62,7 @@ const createWindow = () => {
     console.log('88888 -> this window is closed')
     mainWindow = null // 释放内存
   })
+
 };
 
 // This method will be called when Electron has finished
