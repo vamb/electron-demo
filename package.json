@@ -3,10 +3,10 @@
   "productName": "electron-demo",
   "version": "1.0.0",
   "description": "My Electron application description",
-  "main": "src/index.js",
+  "main": "src/main.js",
   "scripts": {
     "start": "electron-forge start",
-    "watch-start": "nodemon --watch ./src/index.js --exec npm run start",
+    "watch-start": "nodemon --watch ./src/main.js --exec npm run start",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
