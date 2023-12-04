@@ -14,7 +14,7 @@ const createWindow = () => {
     x: '100',
     y: '100',// 设置窗体打开在屏幕的位置
     show: true,
-    //创建完窗体实例后不会立马展示窗体，等到窗体内容加载完毕后才会展现
+    // show: false, // 默认情况下创建一个窗口对象之后就会显示，设置为 false 就不会显示了
     width: 800,
     height: 600,
     maxWidth: 1000,
@@ -39,6 +39,11 @@ const createWindow = () => {
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 
+  // // 这个对应的时 show => 为 false 的时候
+  // mainWindow.on('ready-to-show', ()=>{
+  //   mainWindow.show()
+  // })
+
   // 导航完成时触发
   mainWindow.webContents.on('did-finish-load', ()=>{
     console.log('33333 ->  did-finish-load')
@@ -60,6 +65,7 @@ const createWindow = () => {
 // Some APIs can only be used after this event occurs.
 // app初始化完成
 app.on('ready', ()=>{
+  console.log('00000 -> app.on ready')
   createWindow()
 });
 
