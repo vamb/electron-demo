@@ -4,6 +4,15 @@ const path = require('path');
 window.addEventListener('DOMContentLoaded', ()=>{
   // console.log('11111')
 
+  window.onbeforeunload = function () { // 这个方法会拦截关闭操作
+    console.log('111111')
+    // 通过 document 找到元素，并给元素绑定 click 事件并关闭 全部
+    // yesBtn.addEventListener('click', ()=>{
+    //   mainWindow.destroy()
+    // })
+    return false
+  }
+
   let mainWindow = getCurrentWindow()
 
   const midBtnDom = document.getElementById('min-btn')
