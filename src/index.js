@@ -6,6 +6,8 @@ if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
+// 01 创建一个窗口
+// 02 让窗口加载了一个界面，这个界面就是用 web 技术实现，这个界面是运行在渲染进程中的
 const createWindow = () => {
   // Create the browser window.
   let mainWindow = new BrowserWindow({
@@ -37,23 +39,26 @@ const createWindow = () => {
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 
+  // 导航完成时触发
   mainWindow.webContents.on('did-finish-load', ()=>{
     console.log('33333 ->  did-finish-load')
   })
 
+  // 一个窗口中的文本加载完成
   mainWindow.webContents.on('dom-ready', ()=>{
     console.log('22222 ->  dom-ready')
   })
 
   mainWindow.on('close', ()=>{
     console.log('88888 -> this window is closed')
-    mainWindow = null
+    mainWindow = null // 释放内存
   })
 };
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
+// app初始化完成
 app.on('ready', ()=>{
   createWindow()
 });
@@ -61,6 +66,7 @@ app.on('ready', ()=>{
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
+// 所有窗口都被关闭时触发 - 如果不见听，那就会自动退出，如果监听了就需要执行后续程序去决定是否退出
 app.on('window-all-closed', () => {
   console.log('44444 -> window-all-closed')
   if (process.platform !== 'darwin') {
@@ -68,14 +74,17 @@ app.on('window-all-closed', () => {
   }
 });
 
+// 在关闭窗口之前触发
 app.on('before-quit', ()=>{
   console.log('55555 -> before-quit')
 })
 
+// 在窗口关闭并且应用退出时触发
 app.on('will-quit', ()=>{
   console.log('66666 -> will-quit')
 })
 
+// 当所有窗口被关闭时触发
 app.on('quit', ()=>{
   console.log('77777 -> quit')
 })
