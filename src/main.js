@@ -17,8 +17,8 @@ const createWindow = () => {
     // show: false, // 默认情况下创建一个窗口对象之后就会显示，设置为 false 就不会显示了
     width: 800,
     height: 600,
-    maxWidth: 1000,
-    maxHeight: 800,
+    maxWidth: '100vw',
+    maxHeight: '100vh',
     minWidth: 600,
     minHeight: 400,
     resizable: true, //是否允许缩放
@@ -39,6 +39,10 @@ const createWindow = () => {
 
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
+  // mainWindow.loadFile(path.join(__dirname, 'indexModal.html'))
+
+
+
   console.log('11111 -> dom ready triggered')
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
