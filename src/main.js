@@ -54,7 +54,40 @@ const createWindow = () => {
         }
       ]
     },
-    { label: '编辑' }
+    { label: '编辑' },
+    {
+      label: '角色',
+      submenu: [
+        { label: '复制', role: 'copy' },
+        { label: '剪切', role: 'cut' },
+        { label: '黏贴', role: 'paste' },
+        { label: '最小化', role: 'minimize' },
+      ]
+    },
+    {
+      label: '类型',
+      submenu: [
+        { label: '多选1', type: 'checkbox' },
+        { label: '多选2', type: 'checkbox' },
+        { label: '多选3', type: 'checkbox' },
+        { type: 'separator' },
+        { label: '单选1', type: 'radio' },
+        { label: '单选2', type: 'radio' },
+        { label: '单选3', type: 'radio' },
+        { label: 'windows', type: 'submenu', role: 'windowMenu' }
+      ]
+    },
+    {
+      label: '其他',
+      submenu: [
+        {
+          label: '打开', accelerator: 'ctrl + o',
+          click() {
+            console.log('open 函数执行了')
+          }
+        }
+      ]
+    }
   ]
   // 利用上述模板生成一个菜单项
   let menu = Menu.buildFromTemplate(menuTemp)
