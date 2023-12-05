@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, Menu } = require('electron');
 const path = require('path');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -33,6 +33,33 @@ const createWindow = () => {
       preload: path.join(__dirname, 'preload.js'), // 这个js文件会自动注入到html里面被调用
     },
   });
+
+  console.log('process.platform 显示当前的设备是什么OS', process.platform)
+  // 定义自己需要的菜单项
+  let menuTemp = [
+    {
+      label: '文件',
+      submenu: [
+        {
+          label: '打开文件',
+          click() {
+            console.log('当前需要做得就是打开某一个具体的文件')
+          }
+        },
+        { type: 'separator' },
+        { label: '关闭文件' },
+        {
+          label: '关于',
+          role: 'about'
+        }
+      ]
+    },
+    { label: '编辑' }
+  ]
+  // 利用上述模板生成一个菜单项
+  let menu = Menu.buildFromTemplate(menuTemp)
+  // 将上述的自定义菜单添加到应用里面
+  Menu.setApplicationMenu(menu)
 
   require('@electron/remote/main').initialize()
   require("@electron/remote/main").enable(mainWindow.webContents)
