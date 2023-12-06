@@ -47,6 +47,13 @@
       .main-content {
         padding: 10px;
       }
+      .idxMainActionArea {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        gap: 10px;
+      }
     </style>
   </head>
   <body>
@@ -63,6 +70,11 @@
     <p>main.js 的内容最好还是用 watch-start 来重新打包比较好</p>
     <button id="new-win-btn">create new window 3333</button>
     <button id="modalBtn">模态窗口</button>
+  </div>
+  <div class="idxMainActionArea">
+    <button id="addMenuBtn">创建自定义菜单</button>
+    <input type="text" id="addMenuInput" placeholder="输入菜单名" />
+    <button type="submit" id="addMenuSubmitBtn">添加菜单项</button>
   </div>
     <script src="indexMain.js"></script>
 <!-- 不能多个引入，否则会报错：多次引入 BrowserWindow -->

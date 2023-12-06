@@ -1,4 +1,7 @@
-const { BrowserWindow, getCurrentWindow } = require('@electron/remote')
+const {
+  BrowserWindow, getCurrentWindow,
+  Menu, MenuItem
+} = require('@electron/remote')
 const path = require('path');
 
 window.addEventListener('DOMContentLoaded', ()=>{
@@ -56,4 +59,31 @@ window.addEventListener('DOMContentLoaded', ()=>{
       indexMain = null
     })
   })
+
+  // 动态添加菜单 - 开始
+  const addMenuBtnDom = document.getElementById('addMenuBtn')
+  const addMenuInputDom = document.getElementById('addMenuInput')
+  const addMenuSubmitBtnDom = document.getElementById('addMenuSubmitBtn')
+  // 自定义全局变量存放菜单项
+  let menuItems = new Menu()
+  const newTopLevelMenu = () => {
+    // * 1. 创建菜单
+    let menuFile = new MenuItem({label: '自定义菜单', submenu: menuItems})
+    // * 2. 将创建好的菜单添加至 menu
+    let menus = Menu.getApplicationMenu()
+    menus.append(menuFile)
+    // * 3. 将 menu 放置于 app 中显示
+    Menu.setApplicationMenu(menus)
+  }
+  addMenuBtnDom.addEventListener('click', ()=>{
+    newTopLevelMenu()
+  })
+  addMenuSubmitBtnDom.addEventListener('click', ()=>{
+    const newMenuText = addMenuInputDom.value.trim()
+    if(newMenuText) {
+      menuItems.append(new MenuItem({label: newMenuText, type: 'normal'}))
+      addMenuInputDom.value = ''
+    }
+  })
+  // 动态添加菜单 - 结束
 })
