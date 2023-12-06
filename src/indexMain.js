@@ -1,8 +1,17 @@
-const {
-  BrowserWindow, getCurrentWindow,
-  Menu, MenuItem
-} = require('@electron/remote')
+const { BrowserWindow, getCurrentWindow, Menu, MenuItem } = require('@electron/remote')
 const path = require('path');
+
+const rightClickMenu = [
+  { label: 'Run Code' },
+  { label: '转到定义' },
+  { type: 'separator' },
+  {
+    label: '其他功能',
+    click()  {
+      console.log('other function menu click')
+    }
+  },
+]
 
 window.addEventListener('DOMContentLoaded', ()=>{
   // console.log('11111')
@@ -86,4 +95,13 @@ window.addEventListener('DOMContentLoaded', ()=>{
     }
   })
   // 动态添加菜单 - 结束
+
+  // 右击显示菜单 - 开始
+  let rightMenus = Menu.buildFromTemplate(rightClickMenu)
+  // 给鼠标右击添加监听事件
+  window.addEventListener('contextmenu', (ev)=>{
+    ev.preventDefault()
+    rightMenus.popup({ window: getCurrentWindow()})
+  }, false)
+  // 右击显示菜单 - 结束
 })
