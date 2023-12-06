@@ -1,5 +1,6 @@
 const { BrowserWindow, getCurrentWindow, Menu, MenuItem } = require('@electron/remote')
 const path = require('path');
+const { ipcRenderer } = require('electron')
 
 const rightClickMenu = [
   { label: 'Run Code' },
@@ -12,6 +13,8 @@ const rightClickMenu = [
     }
   },
 ]
+
+// window.onload = function () {} // 这个方法和下面的方法等价
 
 window.addEventListener('DOMContentLoaded', ()=>{
   // console.log('11111')
@@ -96,6 +99,9 @@ window.addEventListener('DOMContentLoaded', ()=>{
   })
   // 动态添加菜单 - 结束
 
+
+
+
   // 右击显示菜单 - 开始
   let rightMenus = Menu.buildFromTemplate(rightClickMenu)
   // 给鼠标右击添加监听事件
@@ -104,4 +110,27 @@ window.addEventListener('DOMContentLoaded', ()=>{
     rightMenus.popup({ window: getCurrentWindow()})
   }, false)
   // 右击显示菜单 - 结束
+
+
+
+
+  // 主进程和渲染进程进行通信 - 开始
+  const asyncBtn = document.getElementById('async-btn')
+  const awaitBtn = document.getElementById('await-btn')
+
+  // 采用异步 API 在渲染进程中给主进程发送消息
+  asyncBtn.addEventListener('click', ()=>{
+    ipcRenderer.send('asyncMsg', '当前是来自于渲染进程的一条异步消息')
+  })
+  // 接收主进程对于异步消息的返回
+  ipcRenderer.on('asyncMsgRe', (ev, data)=>{
+    console.log(`渲染进程接收(asyncMsgRe): ${JSON.stringify(data)}`)
+  })
+  // 采用同步的方式完成数据通信
+  awaitBtn.addEventListener('click', ()=>{
+    let resp = ipcRenderer.sendSync('awaitMsg', '当前是来自于渲染进程的一条同步消息')
+    console.log(`渲染进程接收(awaitMsgRe): ${JSON.stringify(resp)}`)
+  })
+  // ipcRenderer
+  // 主进程和渲染进程进行通信 - 结束
 })

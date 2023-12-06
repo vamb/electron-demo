@@ -55,6 +55,12 @@
         gap: 10px;
         padding: 10px;
       }
+      .contact-msg-area {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        padding: 10px;
+      }
     </style>
   </head>
   <body>
@@ -69,6 +75,7 @@
     <p>如果用start 启动，通过 ctrl + R 可以手动让窗口的样式刷新刷新，比用 watch-start 好用</p>
     <p>ctrl + shift + i => 可以打开调试窗口</p>
     <p>main.js 的内容最好还是用 watch-start 来重新打包比较好</p>
+    <p>chcp 65001 => 将IDEA 控制台的消息重置编码，从而可以正常显示中文内容</p>
     <button id="new-win-btn">create new window 3333</button>
     <button id="modalBtn">模态窗口</button>
   </div>
@@ -79,7 +86,10 @@
     <button type="submit" id="addMenuSubmitBtn">添加菜单项</button>
   </div>
   <div>==========================================</div>
-
+  <div class="contact-msg-area">
+    <button id="async-btn">异步发送消息</button>
+    <button id="await-btn">同步发送消息</button>
+  </div>
     <script src="indexMain.js"></script>
 <!-- 不能多个引入，否则会报错：多次引入 BrowserWindow -->
 <!--    <script src="indexModal.js"></script>-->

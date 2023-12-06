@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain } = require('electron');
 const path = require('path');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -174,3 +174,15 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+
+
+// 主进程接收消息操作 - 开始
+ipcMain.on('asyncMsg', (ev, data) => {
+  console.log(`主进程接收到(asyncMsg)：${JSON.stringify(data)}`)
+  ev.sender.send('asyncMsgRe', '这是主进程回复 asyncMsg 的消息')
+})
+ipcMain.on('awaitMsg', (ev, data) => {
+  console.log(`主进程接收到(awaitMsg)：${JSON.stringify(data)}`)
+  ev.returnValue = '这是主进程回复 awaitMsg 的消息'
+})
+// 主进程接收消息操作 - 结束
