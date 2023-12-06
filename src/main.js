@@ -85,6 +85,15 @@ const createWindow = () => {
           click() {
             console.log('open 函数执行了')
           }
+        },
+        {
+          label: 'sendMsg',
+          click() {
+            BrowserWindow.getFocusedWindow().webContents.send(
+              'mtp',
+              '来自于主进程 menu 上的消息'
+            )
+          }
         }
       ]
     }

@@ -131,6 +131,9 @@ window.addEventListener('DOMContentLoaded', ()=>{
     let resp = ipcRenderer.sendSync('awaitMsg', '当前是来自于渲染进程的一条同步消息')
     console.log(`渲染进程接收(awaitMsgRe): ${JSON.stringify(resp)}`)
   })
-  // ipcRenderer
+  // ======================
+  ipcRenderer.on('mtp', (ev, data)=>{
+    console.log(`渲染进程接收(mtp): ${JSON.stringify(data)}`)
+  })
   // 主进程和渲染进程进行通信 - 结束
 })
