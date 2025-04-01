@@ -2,7 +2,7 @@ const { BrowserWindow, getCurrentWindow, Menu, MenuItem } = require('@electron/r
 const path = require('path');
 const { ipcRenderer } = require('electron')
 
-const rightClickMenu = [
+const rightClickMenu = [ // 右击的菜单
   { label: 'Run Code' },
   { label: '转到定义' },
   { type: 'separator' },
